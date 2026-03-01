@@ -1,2 +1,2 @@
-# Label-Only Model Inversion Attacks via Knowledge Transfer
-Neurips 2023
+# Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks
+CVPR 2026

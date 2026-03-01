@@ -244,6 +244,34 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
     </div>
 </div>
 
+<!-- Performance -->
+<div class="section">
+    <div class="container">
+        <h2 class="text-center">Attack Results</h2>
+        <hr>
+        <figure>
+            <img src="./assets/images/tab3.png" alt="framework">
+            <figcaption>
+                We report the results of LLaVa-1.6-7B, Qwen2.5-VL-7B, MiniGPT-v2, and InternVL2.5-8B on the Facescub dataset.
+            </figcaption>
+        </figure>
+        <hr>
+        <figure>
+            <img src="./assets/images/tab4.png" alt="framework">
+            <figcaption>
+                Human evaluation results.
+            </figcaption>
+        </figure>
+        <hr>
+        <figure>
+            <img src="./assets/images/public_model.png" alt="framework">
+            <figcaption>
+                We reconstruct images of celebrities from the pre-trained LLaVA-v1.6-7B model. For each pair, the left image shows a training image in <em>D</em><sub>priv</sub> while the right image presents the reconstruction <em>x</em><sub>recon</sub> obtained via our model inversion attack. This result illustrates that the pre-trained VLM is vulnerable to training data leakage through model inversion. More results can be found in the paper.
+            </figcaption>
+        </figure>
+    </div>
+</div>
+
 <!-- Citation -->
 <div class="section">
     <div class="container">

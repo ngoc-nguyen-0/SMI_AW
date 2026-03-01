@@ -1,5 +1,5 @@
 <!doctype html>
-<title>Re-thinking Model Inversion Attacks Against Deep Neural Networks</title>
+<title>Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks</title>
     <html lang="en">
 
 <head>
@@ -24,18 +24,18 @@
             
             <p class="lead" style="text-align:center;font-size:1.25em;">
                 <a href="https://scholar.google.com/citations?user=zQPES6kAAAAJ&hl=vi" font color="#ffffff">Ngoc-Bao Nguyen(*)</a> |
-                <a href="https://keshik6.github.io/">Keshigeyan Chandrasegaran(*)</a> |
-                <a href="https://miladabd.github.io/">Milad Abdollahzaden</a> |
+                <a href="">Sy-Tuyen Ho</a> |
+                <a href="">Koh Jun Hao</a> |
                 <a href="https://sites.google.com/site/mancheung0407/">Ngai-Man Cheung</a> </br>
             Singapore University of Technology and Design (SUTD)<br/>
-            <em>Neurips 2023</br></em>
+            <em>CVPR 2026</br></em>
             </p>
                 
                 
             <p class="lead" style="text-align:center;font-size:1.25em;"> 
-                <a href="https://arxiv.org/abs/2304.01669">Paper</a> |
-                <a href="https://github.com/sutd-visual-computing-group/Re-thinking_MI">Github</a> |
-                <a href="https://drive.google.com/drive/folders/11gvFaltjILgPmNgkJ_w1fcINj1RlfOuw?usp=drive_link">Models</a> 
+                <a href="https://arxiv.org/abs/2508.04097">Paper</a> |
+                <a href="">Github</a> |
+                <a href="">Models</a> 
             </p>         
                 
         </div>
@@ -48,8 +48,7 @@
                 <img src="./assets/images/example.001.png" alt="Inverted examples" style="width:100%;height:100%;">
             </div>
         
-            <figcaption>Figure 1: Our proposed method significantly boosts MI attack accuracy. E.g. In the standard CelebA benchmark,
-                our method boosts attack accuracy by 11.8%, achieving above 90% attack accuracy for the first time in contemporary MI literature.
+            <figcaption>Figure 1: 
             </figcaption>
         </figure>
     </div>
@@ -62,10 +61,12 @@
             <p class="lead" style="text-align:left;font-size:1.25em;">
                 
 
-In a model inversion (MI) attack, an adversary abuses access to a machine learning (ML) model to infer and reconstruct private training data. Remarkable progress has been made in the white-box and black-box setups, where the adversary has access to the complete model or the model's soft output respectively. However, there is very limited study in the most challenging but practically important setup: Label-only MI attacks, where the adversary only has access to the model's predicted  label (hard label) without confidence scores nor any other model information.  
-
-In this work, we propose a new approach for label-only MI attacks. Our idea is based on transfer of knowledge from the opaque target model to  surrogate models. Then, with the surrogate models, our approach can harness advanced white-box attacks. We propose knowledge transfer based on generative modelling, and propose a new  Target model-assisted ACGAN (T-ACGAN) for effective knowledge transfer. Our method casts the challenging label-only MI into the more tractable white-box setup. We provide analysis to support that surrogate models based on our approach are good proxy for the target model for MI. Our experiments show that our method significantly \textbf{outperforms existing SOTA Label-only MI attack by more than 15\% across all MI benchmarks.} Furthermore, our method compares favorably in terms of query budget. Our study highlights rising privacy threats for  ML models even when minimal information (i.e.,  hard labels) is exposed.
-            </p>
+Model inversion (MI) attacks pose significant privacy risks by reconstructing private training data from trained neural networks. While prior studies have primarily examined unimodal deep networks, the vulnerability of vision-language models (VLMs) remains largely unexplored. \textbf{In this work, we present the first systematic study of MI attacks on VLMs to understand their susceptibility to leaking private visual training data.}
+Our work makes two main contributions. First, tailored to the token-generative nature of VLMs, we introduce a suite of token-based and sequence-based model inversion strategies, providing a comprehensive analysis of VLMs' vulnerability under different attack formulations.
+Second, based on the observation that tokens vary in their visual grounding, and hence their gradients differ in informativeness  for image reconstruction, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW) as a novel MI for VLMs.
+ SMI-AW dynamically reweights each token's loss gradient according to its visual grounding, enabling the optimization to focus on visually informative tokens and more effectively guide the reconstruction of private images.
+Through extensive experiments and human evaluations on a range of state-of-the-art VLMs across multiple datasets, we show that VLMs are susceptible to training data leakage. Human evaluation of the reconstructed images yields an attack accuracy of 61.21\%, underscoring the severity of these privacy risks.
+Notably, we demonstrate that publicly released VLMs are vulnerable to such attacks. Our study highlights the urgent need for privacy safeguards as VLMs become increasingly deployed in sensitive domains such as healthcare and finance.</p>
 
     </div>
 
@@ -78,12 +79,8 @@ In this work, we propose a new approach for label-only MI attacks. Our idea is b
                 <img src="./assets/images/framework_updated_2.jpeg" alt="penultimate layer visualization" style="width:100%;height:100%;">
             </div>
 
-            <figcaption>Figure 2: Overview and our contributions. 1) We consider the problem of the Model Inversion (MI) attack to reconstruct private training
-                data based on model parameters. Our work makes two foundational contributions to MI attacks. 2) First, we analyse the optimization
-                objective of existing SOTA MI algorithms and show that they are sub-optimal. Further, we propose an improved optimization objective
-                that boosts MI attack performance significantly (Sec 3.1). 3) Second, we formalize the concept of “MI overfitting” showing that it
-                prevents reconstructed images from learning identity semantics of training data. Further, we propose a novel “model augmentation” idea to
-                overcome this issue (Sec 3.2).
+            <figcaption>Figure 2:Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image $x = G(w)$ that maximizes the likelihood of a target class label $y$ under the target model $M_{DNN}$ by repeating $N$ inversion steps. In contrast, VLMs $M_{VLM}$ generate a sequence of tokens, and the target output $\by = (y_1, \dots, y_m)$ is also a sequence of $m$ tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). {\bf (B)} Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs (Sec.~\ref{sec:SMI-AW}). SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images. See Figure~\ref{fig:attentionMap} for discussion of attention map analysis.
+
             </figcaption>
         </figure>
     </div>
@@ -96,12 +93,11 @@ In this work, we propose a new approach for label-only MI attacks. Our idea is b
             
         <pre class="lead" style="text-align:left;font-size:1.0em;white-space: pre-line;">
             <code>@inproceedings{
-                nguyen2023labelonly,
-                title={Label-Only Model Inversion Attacks via Knowledge Transfer},
-                author={Ngoc-Bao Nguyen and Keshigeyan Chandrasegaran and Milad Abdollahzadeh and Ngai-man Cheung},
-                booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
-                year={2023},
-                url={https://openreview.net/forum?id=NuoIThPPag}
+                nguyen2026MIVLM,
+                title={Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks},
+                author={Ngoc-Bao Nguyen and Sy-Tuyen Ho and Koh Jun Hao and Ngai-Man Cheung},
+                booktitle={CVPR},
+                year={2026}
                 }
 </code>
         </pre>
@@ -114,8 +110,7 @@ In this work, we propose a new approach for label-only MI attacks. Our idea is b
         <hr style="border-top: 1px solid #000000; background: transparent;" class="my-4">
             
             <p class="lead" style="text-align:left;font-size:1.25em;">
-                This research is supported by the National Research Foundation, Singapore under its AI Singapore Programmes (AISG Award No.: AISG2-RP-2021-021; AISG Award No.: AISG2-TC-2022-007). 
-        This project is also supported by SUTD project PIE-SGP-AI-2018-01. We thank reviewers for their valuable comments. We also thank Loo Yi and Kelly Kuo for helpful discussion.
+                This research is supported by the National Research Foundation, Singapore under its AI Singapore Programmes (AISG Award No.: AISG2-TC-2022-007); The Agency for Science, Technology and Research (A*STAR) under its MTC Programmatic Funds (Grant No. M23L7b0021). This research is supported by the National Research Foundation, Singapore and Infocomm Media Development Authority under its Trust Tech Funding Initiative. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore and Infocomm Media Development Authority. The work is sponsored by the SUTD Decentralised Gap Funding Grant.
             </p>
 
     </div>

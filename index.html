@@ -19,7 +19,7 @@
     <div class="jumbotron" style="background-color:#f9dbd2;">
         <div class="container" style="font-family:'Times New Roman',serif;margin-bottom:-35px;margin-top:-20px">
             <h1 class="display-1" style="text-align:center; font-weight:bold; font-size:2.0em;letter-spacing:2.0px;">
-                Label-Only Model Inversion Attacks via Knowledge Transfer</h1>
+                Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks</h1>
             <hr style="border-top: 1px solid #000000; background: transparent;" class="my-4">
             
             <p class="lead" style="text-align:center;font-size:1.25em;">
@@ -45,7 +45,8 @@
     <div class="container" style="font-family:'Times New Roman',serif">
         <figure>                
             <div class="col-md-12 text-center">
-                <img src="./assets/images/example.001.png" alt="Inverted examples" style="width:100%;height:100%;">
+                <!-- <img src="./assets/images/example.001.png" alt="Inverted examples" style="width:100%;height:100%;"> -->
+                <embed src="paper.pdf" type="framework_v5.2.pdf" width="100%" height="600px">
             </div>
         
             <figcaption>Figure 1: 
@@ -79,7 +80,7 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
                 <img src="./assets/images/framework_updated_2.jpeg" alt="penultimate layer visualization" style="width:100%;height:100%;">
             </div>
 
-            <figcaption>Figure 2:Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image $x = G(w)$ that maximizes the likelihood of a target class label $y$ under the target model $M_{DNN}$ by repeating $N$ inversion steps. In contrast, VLMs $M_{VLM}$ generate a sequence of tokens, and the target output $\by = (y_1, \dots, y_m)$ is also a sequence of $m$ tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). {\bf (B)} Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs (Sec.~\ref{sec:SMI-AW}). SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images. See Figure~\ref{fig:attentionMap} for discussion of attention map analysis.
+            <figcaption>Figure 2: Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image $x = G(w)$ that maximizes the likelihood of a target class label $y$ under the target model $M_{DNN}$ by repeating $N$ inversion steps. In contrast, VLMs $M_{VLM}$ generate a sequence of tokens, and the target output $\by = (y_1, \dots, y_m)$ is also a sequence of $m$ tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). {\bf (B)} Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs (Sec.~\ref{sec:SMI-AW}). SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images. See Figure~\ref{fig:attentionMap} for discussion of attention map analysis.
 
             </figcaption>
         </figure>

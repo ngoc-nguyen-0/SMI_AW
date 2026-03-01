@@ -110,6 +110,12 @@ h2 {
     letter-spacing: -0.01em;
 }
 
+h3 {
+    font-weight: 550;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+}
 hr {
     border: none;
     height: 1px;
@@ -134,7 +140,13 @@ figcaption {
     margin-left: auto;
     margin-right: auto;
 }
-
+figure {
+    display: flex;
+    flex-direction: column; /* image on top, caption below */
+    align-items: center;    /* center horizontally */
+    text-align: center;     /* center caption text */
+    margin: 0 auto 40px auto; /* optional vertical spacing */
+}
 /* ---------------- Text Blocks ---------------- */
 p {
     font-size: 1.05em;

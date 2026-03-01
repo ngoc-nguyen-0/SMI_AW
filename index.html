@@ -1,123 +1,190 @@
 <!doctype html>
-<title>Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks</title>
-    <html lang="en">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- If IE use the latest rendering engine -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Set the page to the width of the device and set the zoon level -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #222;
+    line-height: 1.7;
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.hero {
+    background-color: #f5f7fa;
+    padding: 80px 0 60px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-weight: 700;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.authors {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.links a {
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+h2 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+hr {
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 40px;
+}
+
+figure img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+figcaption {
+    margin-top: 15px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e1e4e8;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+footer {
+    background-color: #f5f7fa;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+</style>
 
 </head>
 
-
 <body>
-    <!-- page-header-->
-    <div class="jumbotron" style="background-color:#f9dbd2;">
-        <div class="container" style="font-family:'Times New Roman',serif;margin-bottom:-35px;margin-top:-20px">
-            <h1 class="display-1" style="text-align:center; font-weight:bold; font-size:2.0em;letter-spacing:2.0px;">
-                Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks</h1>
-            <hr style="border-top: 1px solid #000000; background: transparent;" class="my-4">
-            
-            <p class="lead" style="text-align:center;font-size:1.25em;">
-                <a href="https://scholar.google.com/citations?user=zQPES6kAAAAJ&hl=vi" font color="#ffffff">Ngoc-Bao Nguyen(*)</a> |
-                <a href="">Sy-Tuyen Ho</a> |
-                <a href="">Koh Jun Hao</a> |
-                <a href="https://sites.google.com/site/mancheung0407/">Ngai-Man Cheung</a> </br>
-            Singapore University of Technology and Design (SUTD)<br/>
-            <em>CVPR 2026</br></em>
-            </p>
-                
-                
-            <p class="lead" style="text-align:center;font-size:1.25em;"> 
-                <a href="https://arxiv.org/abs/2508.04097">Paper</a> |
-                <a href="">Github</a> |
-                <a href="">Models</a> 
-            </p>         
-                
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="container">
+        <h1>Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks</h1>
+
+        <div class="authors">
+            <a href="https://scholar.google.com/citations?user=zQPES6kAAAAJ&hl=vi">Ngoc-Bao Nguyen</a> |
+            <a href="">Sy-Tuyen Ho</a> |
+            <a href="">Koh Jun Hao</a> |
+            <a href="https://sites.google.com/site/mancheung0407/">Ngai-Man Cheung</a>
+        </div>
+
+        <div>Singapore University of Technology and Design (SUTD)</div>
+        <div><em>CVPR 2026</em></div>
+
+        <div class="links" style="margin-top:20px;">
+            <a href="https://arxiv.org/abs/2508.04097">Paper</a> |
+            <a href="">Github</a> |
+            <a href="">Models</a>
         </div>
     </div>
+</div>
 
-
-    <div class="container" style="font-family:'Times New Roman',serif">
-        <figure>                
-            <div class="col-md-12 text-center">
-                <img src="./assets/images/samples_3_1.png" alt="Inverted examples" style="width:100%;height:100%;">
-                </div>
-        
-            <figcaption>Figure 1: Qualitative results on the Facescrub dataset using LLaVA-v1.6-7B model with our SMI-AW and $\mathcal{L}_{LOM}$. The first row shows images from the private training dataset, while the second row presents the reconstructed images corresponding to each individual in the first row. The visual similarity between the original and reconstructed images demonstrates the effectiveness of our inversion method in recovering private training data.
+<!-- Figure 1 -->
+<div class="section">
+    <div class="container text-center">
+        <figure>
+            <img src="./assets/images/samples_3_1.png" alt="Inverted examples">
+            <figcaption>
+                Figure 1: Qualitative results on the Facescrub dataset using LLaVA-v1.6-7B model with our SMI-AW and $\mathcal{L}_{LOM}$. The first row shows images from the private training dataset, while the second row presents the reconstructed images corresponding to each individual in the first row. The visual similarity between the original and reconstructed images demonstrates the effectiveness of our inversion method in recovering private training data.
             </figcaption>
         </figure>
     </div>
+</div>
 
-    
-    <!-- Abstract -->
-    <div class="container" style="font-family:'Times New Roman',serif">
-        <h2 class="display-1" style="text-align:center; font-weight:bold; font-size:1.5em;letter-spacing:2.0px;">Abstract</h2>
-        <hr style="border-top: 1px solid #000000; background: transparent;" class="my-4">
-            <p class="lead" style="text-align:left;font-size:1.25em;">
-                
+<!-- Abstract -->
+<div class="section">
+    <div class="container">
+        <h2 class="text-center">Abstract</h2>
+        <hr>
 
-Model inversion (MI) attacks pose significant privacy risks by reconstructing private training data from trained neural networks. While prior studies have primarily examined unimodal deep networks, the vulnerability of vision-language models (VLMs) remains largely unexplored. \textbf{In this work, we present the first systematic study of MI attacks on VLMs to understand their susceptibility to leaking private visual training data.}
+        <p>
+Model inversion (MI) attacks pose significant privacy risks by reconstructing private training data from trained neural networks. While prior studies have primarily examined unimodal deep networks, the vulnerability of vision-language models (VLMs) remains largely unexplored. <strong>In this work, we present the first systematic study of MI attacks on VLMs to understand their susceptibility to leaking private visual training data.</strong>
 Our work makes two main contributions. First, tailored to the token-generative nature of VLMs, we introduce a suite of token-based and sequence-based model inversion strategies, providing a comprehensive analysis of VLMs' vulnerability under different attack formulations.
-Second, based on the observation that tokens vary in their visual grounding, and hence their gradients differ in informativeness  for image reconstruction, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW) as a novel MI for VLMs.
- SMI-AW dynamically reweights each token's loss gradient according to its visual grounding, enabling the optimization to focus on visually informative tokens and more effectively guide the reconstruction of private images.
-Through extensive experiments and human evaluations on a range of state-of-the-art VLMs across multiple datasets, we show that VLMs are susceptible to training data leakage. Human evaluation of the reconstructed images yields an attack accuracy of 61.21\%, underscoring the severity of these privacy risks.
-Notably, we demonstrate that publicly released VLMs are vulnerable to such attacks. Our study highlights the urgent need for privacy safeguards as VLMs become increasingly deployed in sensitive domains such as healthcare and finance.</p>
-
+Second, based on the observation that tokens vary in their visual grounding, and hence their gradients differ in informativeness for image reconstruction, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW) as a novel MI for VLMs.
+SMI-AW dynamically reweights each token's loss gradient according to its visual grounding, enabling the optimization to focus on visually informative tokens and more effectively guide the reconstruction of private images.
+Through extensive experiments and human evaluations on a range of state-of-the-art VLMs across multiple datasets, we show that VLMs are susceptible to training data leakage. Human evaluation of the reconstructed images yields an attack accuracy of 61.21%, underscoring the severity of these privacy risks.
+Notably, we demonstrate that publicly released VLMs are vulnerable to such attacks. Our study highlights the urgent need for privacy safeguards as VLMs become increasingly deployed in sensitive domains such as healthcare and finance.
+        </p>
     </div>
+</div>
 
-    </br>
-
-    <!-- Proposed Approach -->
-    <div class="container" style="font-family:'Times New Roman',serif">
-        <figure>                
-            <div class="col-md-12 text-center">
-                <img src="./assets/images/framework_v5.2.jpeg" alt="framework" style="width:100%;height:100%;">
-                <!-- <embed src="framework_v5.2.pdf" type="application/pdf" width="100%" height="600px"> -->
-            </div>
-
-            <figcaption>Figure 2: Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image $x = G(w)$ that maximizes the likelihood of a target class label $y$ under the target model $M_{DNN}$ by repeating $N$ inversion steps. In contrast, VLMs $M_{VLM}$ generate a sequence of tokens, and the target output $\by = (y_1, \dots, y_m)$ is also a sequence of $m$ tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). {\bf (B)} Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs (Sec.~\ref{sec:SMI-AW}). SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images. See Figure~\ref{fig:attentionMap} for discussion of attention map analysis.
-
+<!-- Figure 2 -->
+<div class="section">
+    <div class="container text-center">
+        <figure>
+            <img src="./assets/images/framework_v5.2.jpeg" alt="framework">
+            <figcaption>
+                Figure 2: Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image $x = G(w)$ that maximizes the likelihood of a target class label $y$ under the target model $M_{DNN}$ by repeating $N$ inversion steps. In contrast, VLMs $M_{VLM}$ generate a sequence of tokens, and the target output $\by = (y_1, \dots, y_m)$ is also a sequence of $m$ tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). <strong>(B)</strong> Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs (Sec.~\ref{sec:SMI-AW}). SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images. See Figure~\ref{fig:attentionMap} for discussion of attention map analysis.
             </figcaption>
         </figure>
     </div>
+</div>
 
+<!-- Citation -->
+<div class="section">
+    <div class="container">
+        <h2 class="text-center">Citation</h2>
+        <hr>
 
-    <!-- Citation -->
-    <div class="container" style="font-family:'Times New Roman',serif">
-        <h2 class="display-1" style="text-align:center; font-weight:bold; font-size:1.5em;letter-spacing:2.0px;">Citation</h2>
-        <hr style="border-top: 1px solid #000000; background: transparent;" class="my-4">
-            
-        <pre class="lead" style="text-align:left;font-size:1.0em;white-space: pre-line;">
-            <code>@inproceedings{
-                nguyen2026MIVLM,
-                title={Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks},
-                author={Ngoc-Bao Nguyen and Sy-Tuyen Ho and Koh Jun Hao and Ngai-Man Cheung},
-                booktitle={CVPR},
-                year={2026}
-                }
-</code>
-        </pre>
+<pre><code>@inproceedings{
+nguyen2026MIVLM,
+title={Do Vision-Language Models Leak What They Learn? Adaptive Token-Weighted Model Inversion Attacks},
+author={Ngoc-Bao Nguyen and Sy-Tuyen Ho and Koh Jun Hao and Ngai-Man Cheung},
+booktitle={CVPR},
+year={2026}
+}
+</code></pre>
     </div>
+</div>
 
+<!-- Acknowledgements -->
+<div class="section">
+    <div class="container">
+        <h2 class="text-center">Acknowledgements</h2>
+        <hr>
 
-    <!-- Acknowledgements -->
-    <div class="container" style="font-family:'Times New Roman',serif">
-        <h2 class="display-1" style="text-align:center; font-weight:bold; font-size:1.5em;letter-spacing:2.0px;">Acknowledgements</h2>
-        <hr style="border-top: 1px solid #000000; background: transparent;" class="my-4">
-            
-            <p class="lead" style="text-align:left;font-size:1.25em;">
-                This research is supported by the National Research Foundation, Singapore under its AI Singapore Programmes (AISG Award No.: AISG2-TC-2022-007); The Agency for Science, Technology and Research (A*STAR) under its MTC Programmatic Funds (Grant No. M23L7b0021). This research is supported by the National Research Foundation, Singapore and Infocomm Media Development Authority under its Trust Tech Funding Initiative. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore and Infocomm Media Development Authority. The work is sponsored by the SUTD Decentralised Gap Funding Grant.
-            </p>
-
+        <p>
+This research is supported by the National Research Foundation, Singapore under its AI Singapore Programmes (AISG Award No.: AISG2-TC-2022-007); The Agency for Science, Technology and Research (A*STAR) under its MTC Programmatic Funds (Grant No. M23L7b0021). This research is supported by the National Research Foundation, Singapore and Infocomm Media Development Authority under its Trust Tech Funding Initiative. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore and Infocomm Media Development Authority. The work is sponsored by the SUTD Decentralised Gap Funding Grant.
+        </p>
     </div>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</div>
+
+<footer>
+    <div class="container text-center">
+        © 2026 Singapore University of Technology and Design
+    </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

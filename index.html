@@ -259,11 +259,12 @@ footer {
 <!-- Figure 1 -->
 <div class="section">
     <div class="container text-center">
+        <p>The first row shows images from the private training dataset, while the second row presents the reconstructed images corresponding to each individual in the first row. The visual similarity between the original and reconstructed images demonstrates the effectiveness of our inversion method in recovering private training data.</p>
         <figure>
             <img src="./assets/images/samples_3_1.png" alt="Inverted examples">
-            <figcaption>
+            <!-- <figcaption>
                 Figure 1: Qualitative results on the Facescrub dataset using LLaVA-v1.6-7B model with our SMI-AW and <span style="font-family:serif;">𝓛</span><sub>LOM</sub>. The first row shows images from the private training dataset, while the second row presents the reconstructed images corresponding to each individual in the first row. The visual similarity between the original and reconstructed images demonstrates the effectiveness of our inversion method in recovering private training data.
-            </figcaption>
+            </figcaption> -->
         </figure>
     </div>
 </div>
@@ -291,7 +292,7 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
         <figure>
             <img src="./assets/images/framework_v5.2.jpg" alt="framework">
             <figcaption>
-                Figure 2: Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image <em>x</em> = G(<em>w</em>) that maximizes the likelihood of a target class label <em>y</em> under the target model <em>M</em><sub>DNN</sub> by repeating <em>N</em> inversion steps. In contrast, VLMs <em>M</em><sub>VLM</sub> generate a sequence of tokens, and the target output <strong>y</strong> = (y<sub>1</sub>, &hellip;, y<sub>m</sub>) is also a sequence of <em>m</em> tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). <strong>(B)</strong> Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs. SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images.
+                Figure 1: Designed for the token-generative characteristics of VLMs, we introduce a set of token-level and sequence-level MI strategies to investigate VLMs' privacy vulnerability. Particularly, conventional MI typically targets unimodal DNNs, where the adversary seeks to reconstruct a training image <em>x</em> = G(<em>w</em>) that maximizes the likelihood of a target class label <em>y</em> under the target model <em>M</em><sub>DNN</sub> by repeating <em>N</em> inversion steps. In contrast, VLMs <em>M</em><sub>VLM</sub> generate a sequence of tokens, and the target output <strong>y</strong> = (y<sub>1</sub>, &hellip;, y<sub>m</sub>) is also a sequence of <em>m</em> tokens. To address the unique nature of VLMs, we introduce several MI strategies: Token-based Model Inversion (TMI), Convergent Token-based Model Inversion (TMI-C), and Sequence-based Model Inversion (SMI). <strong>(B)</strong> Building on the insight that output tokens differ in their degree of visual grounding, and hence their gradients vary in informativeness for reconstructing images during inversion, we propose Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW), a novel MI for VLMs. SMI-AW adaptively adjusts each token's gradient contribution according to its visual grounding, allowing the optimization to concentrate on visually grounded tokens and more effectively recover private training images.
             </figcaption>
         </figure>
     </div>

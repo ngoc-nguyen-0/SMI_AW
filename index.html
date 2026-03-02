@@ -311,7 +311,7 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
     <div class="container">
         <h2 class="text-center">Proposed method: SMI-AW</h2>
         <hr>
-        <h3 class="text-left-section"> Analysis of visual-textual attention across output tokens and inversion steps.</h3>
+        <h3 class="text-left-section"> Analysis of visual-textual attention across output tokens and inversion steps</h3>
         We visualize the cross-attention map between the reconstructed image and each output token during inversion. Different tokens exhibit markedly different attention maps: visually grounded tokens show strong attention, while others produce weak responses, indicating limited reliance on the image. Moreover, attention patterns evolve over inversion steps, as a token's dependence on visual input changes when the reconstructed image becomes more consistent with the target output. These observations reveal that token-level gradients vary substantially in visual informativeness both across tokens and over time. This motivates our SMI-AW method, which dynamically reweights token contributions based on their visual attention strength.
         
         <div class="main-figure">
@@ -365,7 +365,7 @@ could indicate how sensitive the token’s prediction is to the image content, w
 <!-- Performance -->
 <div class="section">
     <div class="container">
-        <h2 class="text-center">Attack Results</h2>
+        <h2 class="text-center">Attack results</h2>
         <hr>        
         <h3 class="text-left-section">Attack results on a range of state-of-the-art VLMs</h3>
         <p>We report the results of LLaVa-1.6-7B, Qwen2.5-VL-7B, MiniGPT-v2, and InternVL2.5-8B on the Facescub dataset.

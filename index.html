@@ -17,7 +17,21 @@
     --bg-soft: #f9fafb;
     --border-light: #bdd0f4;
 }
+.figure-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;          /* space between images */
+  }
 
+  .figure-row img {
+    width: 48%;         /* each image takes ~half width */
+  }
+
+  .caption {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 14px;
+  }
 body {
     font-family: 'Inter', sans-serif;
     background: #ffffff;
@@ -260,6 +274,33 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
         </figure>
     </div>
 </div>
+
+
+<!-- Proposed method -->
+<div class="section">
+    <div class="container">
+        <h2 class="text-center">Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW)</h2>
+        <hr>
+        <div class="figure-row">
+        <div>
+            <img src="assets/images/attention_1.png" alt="InternVL2">
+            <!-- <div class="caption">(a) First image</div> -->
+        </div>
+        <div>
+            <img src="assets/images/attention_2.png" alt="MiniGPT-v2">
+            <!-- <div class="caption">(b) Second image</div> -->
+        </div>
+        </div>
+        <figcaption>
+                Figure 3: Analysis of visual–textual attention across output tokens and inversion steps. We visualize the cross-attention map between the reconstructed image and each output token during inversion. Different tokens exhibit markedly different attention maps: visually grounded tokens show strong attention, while others produce weak responses, indicating limited reliance on the image. Moreover, attention patterns evolve over inversion steps, as a token's dependence on visual input changes when the reconstructed image becomes more consistent with the target output. These observations reveal that token-level gradients vary substantially in visual informativeness both across tokens and over time. This motivates our SMI-AW method, which dynamically reweights token contributions based on their visual attention strength. Additional attention map analysis can be found in Supp.
+        </figcaption>
+
+
+    </div>
+</div>
+
+
+
 
 <!-- Performance -->
 <div class="section">

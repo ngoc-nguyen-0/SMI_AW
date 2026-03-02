@@ -17,14 +17,36 @@
     --bg-soft: #f9fafb;
     --border-light: #bdd0f4;
 }
-.figure-row {
-    display: flex;
-    justify-content: center;
-    gap: 20px;          /* space between images */
+.main-figure {
+    text-align: center;
+    margin: 40px 0;
   }
 
-  .figure-row img {
-    width: 48%;         /* each image takes ~half width */
+  .subfigures {
+    display: flex;
+    justify-content: center;   /* center the row */
+    gap: 24px;                 /* space between images */
+    margin-top: 15px;
+  }
+
+  .subfigures figure {
+    margin: 0;
+    width: 45%;                /* each image ~half width */
+  }
+
+  .subfigures img {
+    width: 100%;
+    height: auto;
+  }
+
+  .subfigures figcaption {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .main-caption {
+    margin-top: 15px;
+    font-size: 15px;
   }
 
   .caption {
@@ -284,6 +306,24 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
         <h3 class="text-left-section"> Analysis of visual-textual attention across output tokens and inversion steps.</h3>
         We visualize the cross-attention map between the reconstructed image and each output token during inversion. Different tokens exhibit markedly different attention maps: visually grounded tokens show strong attention, while others produce weak responses, indicating limited reliance on the image. Moreover, attention patterns evolve over inversion steps, as a token's dependence on visual input changes when the reconstructed image becomes more consistent with the target output. These observations reveal that token-level gradients vary substantially in visual informativeness both across tokens and over time. This motivates our SMI-AW method, which dynamically reweights token contributions based on their visual attention strength. Additional attention map analysis can be found in Supp.
         
+        <div class="main-figure">
+    
+    <div class="subfigures">
+        <figure>        
+            <img src="assets/images/attention_1.png" alt="InternVL2">
+        </figure>
+
+        <figure> 
+            <img src="assets/images/attention_2.png" alt="MiniGPT-v2">
+        </figure>
+    </div>
+
+    <div class="main-caption">
+        Figure 2: Overall comparison of results.
+    </div>
+
+    </div>
+
         <div class="figure-row">
         <div>
             <img src="assets/images/attention_1.png" alt="InternVL2">

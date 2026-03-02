@@ -279,8 +279,11 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
 <!-- Proposed method -->
 <div class="section">
     <div class="container">
-        <h2 class="text-center">Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW)</h2>
+        <h2 class="text-center">Proposed method: SMI-AW</h2>
         <hr>
+        <h3 class="text-left-section"> Analysis of visual-textual attention across output tokens and inversion steps.</h3>
+        We visualize the cross-attention map between the reconstructed image and each output token during inversion. Different tokens exhibit markedly different attention maps: visually grounded tokens show strong attention, while others produce weak responses, indicating limited reliance on the image. Moreover, attention patterns evolve over inversion steps, as a token's dependence on visual input changes when the reconstructed image becomes more consistent with the target output. These observations reveal that token-level gradients vary substantially in visual informativeness both across tokens and over time. This motivates our SMI-AW method, which dynamically reweights token contributions based on their visual attention strength. Additional attention map analysis can be found in Supp.
+        
         <div class="figure-row">
         <div>
             <img src="assets/images/attention_1.png" alt="InternVL2">
@@ -291,10 +294,34 @@ Notably, we demonstrate that publicly released VLMs are vulnerable to such attac
             <!-- <div class="caption">(b) Second image</div> -->
         </div>
         </div>
-        <figcaption>
-                Figure 3: Analysis of visual–textual attention across output tokens and inversion steps. We visualize the cross-attention map between the reconstructed image and each output token during inversion. Different tokens exhibit markedly different attention maps: visually grounded tokens show strong attention, while others produce weak responses, indicating limited reliance on the image. Moreover, attention patterns evolve over inversion steps, as a token's dependence on visual input changes when the reconstructed image becomes more consistent with the target output. These observations reveal that token-level gradients vary substantially in visual informativeness both across tokens and over time. This motivates our SMI-AW method, which dynamically reweights token contributions based on their visual attention strength. Additional attention map analysis can be found in Supp.
-        </figcaption>
 
+        
+        <h3 class="text-left-section">Sequence-based Model Inversion with Adaptive Token Weighting (SMI-AW)</h3>
+
+    <p> We observe that different output tokens have varying degrees of dependence on the visual input — some are strongly visually grounded, while others are less
+visually grounded and they are driven by prior linguistic context instead </p>
+
+<p> 
+If a token <em>y</em><sub>i</sub> exhibits strong visual attention, it is likely more visually dependent, and its loss gradient carries richer visual information about the image. In other words, the strength of cross-attention 
+could indicate how sensitive the token’s prediction is to the image content, which directly determines how informative its gradient is for model inversion. Therefore, we propose to use the magnitude of the attention map as a proxy for the informativeness of each token's loss gradient in a model inversion step and use it to weight its contribution to the overall inversion gradient — tokens with higher visual attention receive larger weights, while those with weaker visual grounding are down-weighted.</p>
+
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <p>
+        \[
+        \beta_i = \frac{\alpha_i}{\sum_{j=1}^{m} \alpha_j}
+        \quad (4)
+        \]
+        </p>
+    </body>
+
+    <p> Algorithm:</p>
+    <figure>
+        <img src="./assets/images/algorithm.png" alt="algorithm">        
+    </figure>    
 
     </div>
 </div>
